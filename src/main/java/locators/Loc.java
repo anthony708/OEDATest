@@ -3,14 +3,17 @@ package locators;
 public class Loc {
 
     // Navigation
-    public static String hardwareItem = spanClassXPath("Hardware");
-    public static String rackNetworksItem = spanClassXPath("Rack Networks");
+    public static String hardwareItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Hardware')]";
+    public static String rackNetworksItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Rack Networks')]";
 
+    /*
+        Hardware
+     */
     public static String exadbmIcon = "//input[@id=\"exaopt\"]";
     public static String zdlraIcon = "//input[@id=\"zdlraopt\"]";
     public static String exacIcon = "//input[@id=\"cloudopt\"]";
 
-    public static String computeNodeDropList = spanIdXPath("ojChoiceId_selectExaCompNode_selected");
+    public static String computeNodeDropList = "//*[@id=\"ojChoiceId_selectExaCompNode_selected\"]";
     //public static String computeNodeSearchField = "//input[@class=\"oj-listbox-input\"]";
     public static String computeNodeX7_2RoCE = "//div[@class='oj-listbox-result-label' and contains(text(),'X7-2 RoCE')]";
     public static String computeNodeX7_8RoCE = "//div[@class='oj-listbox-result-label' and contains(text(),'X7-8 RoCE')]";
@@ -30,16 +33,17 @@ public class Loc {
     public static String computeNodeX2_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X2-2']";
     public static String computeNodeX2SE = "//div[@class='oj-listbox-result-label' and @aria-label='X2 Storage Expansion']";
 
-    public static String rackSizeDropList = spanIdXPath("ojChoiceId_selectRackSize_selected");
-    public static String rackSizeElastic = "/div[contains(text(),'Elastic')]";
-    public static String rackSizeFull = "/div[contains(text(),'Full')]";
+    public static String rackSizeDropList = "//*[@id=\"ojChoiceId_selectRackSize_selected\"]";
+    public static String rackSizeElastic = "//div[@class='oj-listbox-result-label' and text()=\"Elastic\"]";
+    public static String rackSizeFull = "//div[contains(text(),'Full')]";
 
-    public static String diskSizeDropList = spanIdXPath("ojChoiceId_selectCellServerCapacity_selected");
+    public static String diskSizeDropList = "//*[@id=\"ojChoiceId_selectCellServerCapacity_selected\"]";
     public static String diskSizeHC10TB = "//div[@class='oj-listbox-result-label' and contains(text(),'HC 10TB')]";
     public static String diskSizeEF64TB = "//div[@class='oj-listbox-result-label' and contains(text(),'EF 6.4TB')]";
 
     public static String addBtn = "//button[@id=\"addRackBtn\"]";
 
+    public static String rackName = "/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[1]/div/div/div/div[5]/div/div[4]/div/div[3]/div[1]/div/label";
     public static String rackPrefixText = inputAltXPath("Rack Prefix");
     public static String spineSwitchCheckbox = inputAltXPath("Spine Switch");
     public static String customerNameText = inputAltXPath("Customer Name");
@@ -61,8 +65,9 @@ public class Loc {
 
     public static String timezoneLabel = "//div[@class='oj-label-group']/label[contains(text(),'Timezone')]";
     public static String timezoneDropList = "//div[@class='oj-label-group']/label[contains(text(),'Timezone')]/../../following-sibling::div";
-    //public static String timezoneSearchField = "//input[@class=\"oj-listbox-input\"]";
+    public static String timezoneSearchField = "/html/body/div[1]/div/div/div/div/input";
     public static String timezoneSearchBtn = "//span[@class=\"oj-listbox-spyglass-box\"]";
+    public static String timezoneNY = "//div[@class='oj-listbox-result-label' and @aria-label='New_York']";
 
     public static String computeNodeCountText = inputAltXPath("Compute Node count");
     public static String storageNodeCountText = inputAltXPath("Storage Node count");
@@ -77,18 +82,28 @@ public class Loc {
     public static String disableWBFCIcon = "//input[@value=\"disable\"]";
     public static String enableWBFCIcon = "//input[@value=\"enable\"]";
 
-    //public static String enableCoDCheckbox =
+    public static String enableCoDCheckbox = "//label[contains(text(),'Enable Capacity-on-Demand')]/../input[@class='oj-checkbox-nocomp']";
 
-    public static String applyBtn = "//button[@id=\"rackSelectNextButton\"]";
-    public static String comfirmedBtn = "// button[@id=\"codConfirmButton\"]";
+    public static String hardwareApplyBtn = "//button[@id=\"rackSelectNextButton\"]";
+    public static String confirmedBtn = "// button[@id=\"codConfirmButton\"]";
 
-    public static String spanIdXPath(String id) {
-        return "//span[@id=\"" + id + "\"]";
-    }
+    /*
+        Rack Networks
+      */
+    public static String removePDUsCheckBox = "/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div[2]/div[1]/div/input[@type='checkbox']";
+    public static String rackNwAdvBtn = "//button[@id=\"RackNwAdvancedButton\"]";
+    public static String gateWayCheckBox = "//input[@alt='Default Gateway']";
+    public static String gateWayText = inputAltXPath("Gateway");
+    public static String startIPAddressText = inputAltXPath("Start IP");
+    public static String domainNameText = inputAltXPath("Domain Name");
+    public static String seperateILOMNwCheckBox = "//input[@title='Separate ILOM network']";
+    public static String modifyMasksBtn = "//*[@id=\"buttonOpener\"]";
 
-    public static String spanClassXPath(String classname) {
-        return "//span[@class=\"" + classname + "\"]";
-    }
+    public static String adminNetworkApplyBtn = "//button[@id=\"saveRackNetworksButtonAdmin\"]";
+
+    /*
+    
+     */
 
     public static String inputAltXPath(String alt) {
         return "//input[@alt=\"" + alt + "\"]";
