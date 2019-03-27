@@ -7,6 +7,7 @@ public class Loc {
     public static String rackNetworksItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Rack Networks')]";
     public static String operatingSystemItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Operating System')]";
     public static String usersItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Users')]";
+    public static String clustersItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Clusters')]";
 
     /*
         Hardware
@@ -129,15 +130,17 @@ public class Loc {
     /*
         Users
      */
-
     public static String defaultRadioBtn = "//span[contains(text(),'Default')]/../preceding-sibling::span";
     public static String roleSeperatedRadioBtn = "//span[contains(text(),'Role Separated')]/../preceding-sibling::span";
     public static String customRadioBtn = "//span[contains(text(),'Custom')]/../preceding-sibling::span";
-
+    public static String userGroupSaveBtn = "//*[@id=\"usergroup-save-btn\"]";
 
     /*
         Clusters
      */
+    public static String gridSoftwareVersionDropList = "";
+    public static String addAllNodesbtn = "//button[@alt=\"Add All Nodes Button\"]";
+    public static String submitClusterBtn = "//*[@id=\"submitClusterButton_v2\"]";
 
     private static String inputAltXPath(String alt) {
         return "//input[@alt=\"" + alt + "\"]";
