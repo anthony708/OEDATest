@@ -1,5 +1,7 @@
 package locators;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 public class Loc {
 
     // Navigation
@@ -8,10 +10,17 @@ public class Loc {
     public static String operatingSystemItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Operating System')]";
     public static String usersItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Users')]";
     public static String clustersItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Clusters')]";
+    public static String diskgroupItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Diskgroups')]";
+    public static String dbHomeItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Database Home')]";
+    public static String dbItem = "//*[text()='Database']";
+    public static String clusterNetworksItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Cluster Networks')]";
+    public static String alertingItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Alerting')]";
+    public static String commentsItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Comments')]";
 
     /*
         Hardware
      */
+    public static String selectHardwareCollapse = "//span[contains(text(),'Select Hardware')]";
     public static String exadbmIcon = "//input[@id=\"exaopt\"]";
     public static String zdlraIcon = "//input[@id=\"zdlraopt\"]";
     public static String exacIcon = "//input[@id=\"cloudopt\"]";
@@ -141,6 +150,49 @@ public class Loc {
     public static String gridSoftwareVersionDropList = "";
     public static String addAllNodesbtn = "//button[@alt=\"Add All Nodes Button\"]";
     public static String submitClusterBtn = "//*[@id=\"submitClusterButton_v2\"]";
+
+    /*
+        Diskgroups
+     */
+    public static String advancedCheckBox = "//input[@title=\"Advanced options\"]";
+    public static String enableASMSSCheckBox = "//input[@title=\"Enable Asm Scoped Security\"]";
+
+    public static String redundancyDropList2 = "/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[6]/div/div/div/div[2]/div/div[4]/div/div/div[2]/div/div[4]/div[2]/div[3]/div[1]/following-sibling::div";
+    public static String redundancyHigh = "//div[@aria-label=\"HIGH\"]";
+    public static String redundancyNormal = "//div[@aria-label=\"NORMAL\"]";
+    public static String saveDiskgroupBtn = "//*[@id=\"saveDiskgroupBtnId\"]";
+
+    /*
+        Database Home
+     */
+    public static String submitDBHomeBtn = "//*[@id=\"submitDatabaseHomeButton\"]";
+
+    /*
+        Database
+     */
+    public static String submitDBBtn = "//*[@id=\"submitDatabaseButtonId\"]";
+
+    /*
+        Client Network
+     */
+    public static String clientNetworkCollapse = "//*[@id=\"oj-collapsible-clusterClientNetworkCollapsible-header\"]";
+    public static String defaultGatewayCheckBox = "//input[@class=\"oj-checkbox-nocomp defaultGatewayClient\" and @title=\"Default Gateway\"]";
+    public static String defaultHosenameCheckBox = "//input[@class=\"oj-checkbox-nocomp defaultHostnameClient\" and @title=\"Default Hostname\"]";
+    public static String cnGatewayInput = "//label[contains(text(),'Gateway')]/../../following-sibling::div/input";
+    public static String cnSubnetMaskDropList = "//label[contains(text(),'Subnet Mask')]/../../following-sibling::div";
+    public static String cnSubnetMaskSearchField = "//input[@title=\"Search field\"]";
+    public static String cnSubnetMast2552552480 = "//span[contains(text(),'255.255.248.0')]";
+    public static String saveClusterNetworkBtn = "//*[@id=\"saveClusterNetworkBtn_client\"]";
+
+    /*
+        Alerting
+     */
+    public static String submitAlertBtn = "//*[@id=\"submitAlertsButton\"]";
+
+    /*
+        Comments
+     */
+    public static String saveCommentsBtn = "//*[@id=\"saveCommentButton\"]";
 
     private static String inputAltXPath(String alt) {
         return "//input[@alt=\"" + alt + "\"]";
