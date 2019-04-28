@@ -1,0 +1,15 @@
+<project name="fromdifferentbuild" default="Sanity" basedir=".">
+    <property name="build" location="../../../../bin"/>
+    <property name="prop" location="../../../../prop"/>
+    <property name="lib" location="../../../../lib"/>
+    <property name="src" location="../../../../src"/>
+    <property name="reports" location="../../reports"/>
+    <property name="output" location="../../../../output"/>
+    <property file="${prop}/oeda_local_config.properties" prefix="oeda"/>
+    <import file="../../../../build.xml"/>
+
+    <target name="Sanity">
+        <echo>Start to run oeda.testcases.Sanity module</echo>
+        <runTask task="Sanity"/>
+    </target>
+</project>

@@ -1,8 +1,12 @@
 package locators;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 public class Loc {
+
+    // Menu and menu items
+    public static String menuBtn = "//*[@class=\"oj-button-text\" and contains(text(), 'Menu')]";
+    public static String saveItem = "//*[@id=\"save\"]";
+    public static String diagnosticsItem = "//*[@id=\"diagnostics\"]";
+    public static String preferencesItem = "//*[@id=\"preferences\"]";
 
     // Navigation
     public static String hardwareItem = "//span[@class=\"oj-navigationlist-item-label\" and contains(text(), 'Hardware')]";
@@ -31,8 +35,8 @@ public class Loc {
     public static String computeNodeX7_8RoCE = "//div[@class='oj-listbox-result-label' and contains(text(),'X7-8 RoCE')]";
     public static String computeNodeX7_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X7-2']";
     public static String computeNodeX7_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X7-8']";
-    public static String computeNodeX6_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X6-2']";
-    public static String computeNodeX6_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X6-8']";
+    public static String computeNodeX6_2 = "//div[@class='oj-listbox-result-label' and @aria-label='ExadataX6-2']";
+    public static String computeNodeX6_8 = "//div[@class='oj-listbox-result-label' and @aria-label='ExadataX6-8']";
     public static String computeNodeX5_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X5-8']";
     public static String computeNodeX5_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X5-2']";
     public static String computeNodeX4_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X4-8']";
@@ -54,7 +58,7 @@ public class Loc {
     public static String diskSizeHC10TB = "//div[@class='oj-listbox-result-label' and contains(text(),'HC 10TB')]";
     public static String diskSizeEF64TB = "//div[@class='oj-listbox-result-label' and contains(text(),'EF 6.4TB')]";
 
-    public static String addBtn = "//button[@id=\"addRackBtn\"]";
+    public static String addRackBtn = "//button[@id=\"addRackBtn\"]";
 
     public static String rackName = "/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[1]/div/div/div/div[5]/div/div[4]/div/div[3]/div[1]/div/label";
     public static String rackPrefixInput = inputAltXPath("Rack Prefix");
@@ -114,6 +118,8 @@ public class Loc {
       */
     public static String removePDUsCheckBox = "/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div[2]/div[1]/div/input[@type='checkbox']";
     public static String rackNwAdvBtn = "//button[@id=\"RackNwAdvancedButton\"]";
+    public static String adminNetworkCollapse = "//label[contains(text(), 'Admin Network')]";
+
     public static String gateWayCheckBox = "//input[@alt='Default Gateway']";
     public static String gateWayInput = inputAltXPath("Gateway");
     public static String anStartIPAddress = inputAltXPath("Start IP");
@@ -131,8 +137,8 @@ public class Loc {
 
     public static String pnStartIPAddress = "//label[contains(text(),'Start IP Address')]/../../following-sibling::div/input[@alt=\"Start IP Address\"]";
     //public static String pnSubnetMaskDropList = "";
-    public static String pnSubnetMaskSearchField = "";
-    public static String pnSubnetMask2552552480 = "";
+    //public static String pnSubnetMaskSearchField = "";
+    //public static String pnSubnetMask2552552480 = "";
     //public static String pnDomainNameInput = "";
     public static String privateNetworkApplyBtn = "//*[@id=\"saveRackNetworksButtonPrivate\"]";
 
