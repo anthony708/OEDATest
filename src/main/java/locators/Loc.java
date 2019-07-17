@@ -4,7 +4,7 @@ public class Loc {
 
     // Menu and menu items
     public static String menuBtn = "//*[@class=\"oj-button-text\" and contains(text(), 'Menu')]";
-    public static String saveItem = "//*[@id=\"save\"]";
+    public static String saveItem = "//a[text()='Save']";
     public static String diagnosticsItem = "//*[@id=\"diagnostics\"]";
     public static String preferencesItem = "//*[@id=\"preferences\"]";
 
@@ -30,7 +30,7 @@ public class Loc {
     public static String exacIcon = "//input[@id=\"cloudopt\"]";
 
     public static String computeNodeDropList = "//*[@id=\"ojChoiceId_selectExaCompNode_selected\"]";
-    //public static String computeNodeSearchField = "//input[@class=\"oj-listbox-input\"]";
+    public static String searchField = "//input[@title=\"Search field\"]";
     public static String computeNodeX7_2RoCE = "//div[@class='oj-listbox-result-label' and contains(text(),'X7-2 RoCE')]";
     public static String computeNodeX7_8RoCE = "//div[@class='oj-listbox-result-label' and contains(text(),'X7-8 RoCE')]";
     public static String computeNodeX7_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X7-2']";
@@ -132,7 +132,7 @@ public class Loc {
     public static String anDomainNameInput = "//input[@alt=\"Domain Name\"]";
 
     public static String seperateILOMNwCheckBox = "//input[@title='Separate ILOM network']";
-    public static String anModifyMasksBtn = "//*[@id=\"buttonOpener\"]";
+
     public static String adminNetworkApplyBtn = "//*[@id=\"saveRackNetworksButtonAdmin\"]";
 
     public static String pnStartIPAddress = "//label[contains(text(),'Start IP Address')]/../../following-sibling::div/input[@alt=\"Start IP Address\"]";
@@ -141,6 +141,47 @@ public class Loc {
     //public static String pnSubnetMask2552552480 = "";
     //public static String pnDomainNameInput = "";
     public static String privateNetworkApplyBtn = "//*[@id=\"saveRackNetworksButtonPrivate\"]";
+
+    /*
+        Modify Masks
+     */
+    public static String modifyMasksBtn = "//button[@id=\"buttonOpener\" and @title=\"Modify masks\"]";
+    public static String computeNameMaskInput = "//input[@type=\"text\" and @alt=\" Compute Name Mask\"]";
+    public static String computeNameStartIDInput = "//input[@type=\"text\" and @alt=\"Compute Name Start Id\"]";
+
+    public static String storageNameMaskInput = "//label[contains(text(),'Storage Name Mask')]/../../following-sibling::div/input";
+    public static String storageNameStartIDInput = "//label[contains(text(),'Storage Name Start Id')]/../../following-sibling::div/input";
+
+    public static String computeILOMMaskInput = "//input[@type=\"text\" and @alt=\" Compute ILOM Mask\"]";
+    public static String ilomNameStartIDInput = "//input[@type=\"text\" and @alt=\"ILOM Name Start Id\"]";
+
+    public static String storageILOMNameMaskInput = "//label[contains(text(),'Storage ILOM Name Mask')]/../../following-sibling::div/input";
+    public static String storageILOMStartIDInput = "//label[contains(text(),'Storage ILOM Start Id')]/../../following-sibling::div/input";
+
+    public static String ciscoSwitchInput = "//label[contains(text(),'Cisco Switch')]/../../following-sibling::div/input";
+    public static String infiniBandLeaf1Input = "//label[contains(text(),'InfiniBand Leaf')]/../../following-sibling::div/input";
+    public static String pduAInput = "//label[contains(text(),'PDU-A')]/../../following-sibling::div/input";
+    public static String infiniBandSpineInput = "//label[contains(text(),'InfiniBand Spine')]/../../following-sibling::div/input";
+    public static String infinibandLeaf2Input = "//label[contains(text(),'Infiniband Leaf')]/../../following-sibling::div/input";
+    public static String pdbBInput = "//label[contains(text(),'PDU-B')]/../../following-sibling::div/input";
+
+    public static String networkMasksApplyBtn = "//div[@id=\"masks\"]/div/div/button/div/span[text()=\"Apply\"]";
+    public static String computePrivateNetworkMasksInput = "//div[contains(text(),'Compute private masks')]/../following-sibling::div[2]/div[1]/div[2]/input";
+    public static String computePrivateNameStartIDInput = "//div[contains(text(),'Compute private masks')]/../following-sibling::div[3]/div[1]/div[2]/input";
+
+    public static String cellPrivateNameMaskInput = "//div[contains(text(),'Compute private masks')]/../following-sibling::div[2]/div[2]/div[2]/input";
+    public static String cellPrivateNameStartIDInput = "//div[contains(text(),'Compute private masks')]/../following-sibling::div[3]/div[2]/div[2]/input";
+
+    public static String clientNetworkMaskNameInput = "//div[contains(text(), \"Client access details\")]/../following-sibling::div[2]/div[1]/div[2]/input";
+    public static String clientNetworkNameStartIDInput = "//div[contains(text(), \"Client access details\")]/../following-sibling::div[3]/div[1]/div[2]/input";
+
+    public static String vipMaskNameInput = "//div[contains(text(), \"Client access details\")]/../following-sibling::div[2]/div[2]/div[2]/input";
+    public static String vipDetailsStartIDInput = "//div[contains(text(), \"Client access details\")]/../following-sibling::div[3]/div[2]/div[2]/input";
+
+    public static String scanDetailsNameInput = "//div[contains(text(),'Scan details')]/../following-sibling::div[2]/div[1]/div[2]/input";
+    public static String scanDetailsPortInput = "//div[contains(text(),'Scan details')]/../following-sibling::div[2]/div[2]/div[2]/input";
+
+    public static String clientNetworkMasksApplyBtn = "//div[text()=\"Client Network Masks\"]/../following-sibling::div/div[2]/div[1]/button/div/span";
 
     /*
         Users
@@ -188,7 +229,15 @@ public class Loc {
     public static String cnSubnetMaskDropList = "//label[contains(text(),'Subnet Mask')]/../../following-sibling::div";
     public static String cnSubnetMaskSearchField = "//input[@title=\"Search field\"]";
     public static String cnSubnetMast2552552480 = "//span[contains(text(),'255.255.248.0')]";
+    public static String startIPAddressInput = "//label[contains(text(),'Start IP Address')]/../../following-sibling::div/input";
     public static String saveClusterNetworkBtn = "//*[@id=\"saveClusterNetworkBtn_client\"]";
+
+    // BackupNetwork
+    public static String enableBackupNetworkBtn = "//label[contains(text(),'Enable Backup network')]";
+    public static String selectNetworkMediaSpeedDroplist = "//label[contains(text(),'Select network media and speed')]/../../../following-sibling::div/div/div/div/span";
+    public static String SFP28PCI = "//div[text()=\"SFP28 PCI Dual Port Card\"]";
+    public static String backupNetworkGateway = "//input[@alt=\"Gateway\"]";
+    public static String backupNetworkApplyBtn = "//button[@title='Apply Network changes']";
 
     /*
         Alerting
