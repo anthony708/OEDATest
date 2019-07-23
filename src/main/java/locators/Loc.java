@@ -66,8 +66,7 @@ public class Loc {
     public static String customerNameInput = inputAltXPath("Customer Name");
     public static String appSerialNumInput = inputAltXPath("Application/Serial #");
 
-    public static String regionLabel = "//div[@class='oj-label-group']/label[contains(text(),'Region')";
-    public static String regionDropList = "//div[@class='oj-label-group']/label[contains(text(),'Region')]/../../following-sibling::div";
+    public static String regionDropList = "//label[contains(text(),'Region')]/../../following-sibling::div/div/span";
     public static String regionAfrica = "//div[@class='oj-listbox-result-label' and @aria-label='Africa']";
     public static String regionAmerica = "//div[@class='oj-listbox-result-label' and @aria-label='America']";
     public static String regionAntarctica = "//div[@class='oj-listbox-result-label' and @aria-label='Antarctica']";
@@ -80,8 +79,7 @@ public class Loc {
     public static String regionOther = "//div[@class='oj-listbox-result-label' and @aria-label='Other']";
     public static String regionPacific = "//div[@class='oj-listbox-result-label' and @aria-label='Pacific']";
 
-    public static String timezoneLabel = "//div[@class='oj-label-group']/label[contains(text(),'Timezone')]";
-    public static String timezoneDropList = "//div[@class='oj-label-group']/label[contains(text(),'Timezone')]/../../following-sibling::div";
+    public static String timezoneDropList = "//div[@class='oj-label-group']/label[contains(text(),'Timezone')]/../../following-sibling::div/div";
     public static String timezoneSearchField = "/html/body/div[1]/div/div/div/div/input";
     public static String timezoneSearchBtn = "//span[@class=\"oj-listbox-spyglass-box\"]";
     public static String timezoneNY = "//div[@class='oj-listbox-result-label' and @aria-label='New_York']";
@@ -194,7 +192,9 @@ public class Loc {
     /*
         Clusters
      */
-    public static String gridSoftwareVersionDropList = "";
+    public static String gridSoftwareVersionDropList = "//input[@alt=\"Grid Software Version\"]/preceding-sibling::div";
+    public static String gridVersionText = "//div[@aria-label=\"19.3.0.0 RU190416\"]";
+    public static String gridInfrastructureHomeLocationInput = "//input[@alt=\"Grid Infrastructure Home Location\"]";
     public static String addAllNodesbtn = "//button[@alt=\"Add All Nodes Button\"]";
     public static String submitClusterBtn = "//*[@id=\"submitClusterButton_v2\"]";
 
@@ -202,21 +202,31 @@ public class Loc {
         Diskgroups
      */
     public static String advancedCheckBox = "//input[@title=\"Advanced options\"]";
+    public static String enableSparseDiskgroupCheckBox = "//input[@title=\"Enable sparse diskgroup\"]";
     public static String enableASMSSCheckBox = "//input[@title=\"Enable Asm Scoped Security\"]";
 
-    public static String redundancyDropList2 = "/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[6]/div/div/div/div[2]/div/div[4]/div/div/div[2]/div/div[4]/div[2]/div[3]/div[1]/following-sibling::div";
+    public static String redundancyDropList1 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[1]/div[3]/div[2]/div/span";
+    public static String redundancyDropList2 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[2]/div[3]/div[2]/div/span";
+    public static String redundancyDropList3 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[3]/div[3]/div[2]/div/span";
     public static String redundancyHigh = "//div[@aria-label=\"HIGH\"]";
     public static String redundancyNormal = "//div[@aria-label=\"NORMAL\"]";
+
+    public static String diskgroupName1 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[1]/div[1]/div[2]/input";
+    public static String diskgroupName2 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[2]/div[1]/div[2]/input";
+    public static String diskgroupName3 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[3]/div[1]/div[2]/input";
     public static String saveDiskgroupBtn = "//*[@id=\"saveDiskgroupBtnId\"]";
 
     /*
         Database Home
      */
+    public static String dbHomeVersionDropList = "//input[@alt=\"Select Database Home version\"]/preceding-sibling::div";
+    public static String dbHomeText = "//div[@aria-label=\"19.3.0.0 RU190416\"]";
     public static String submitDBHomeBtn = "//*[@id=\"submitDatabaseHomeButton\"]";
 
     /*
         Database
      */
+    public static String enableCDBCheckbox = "//input[@title=\"Enable CDB\"]";
     public static String submitDBBtn = "//*[@id=\"submitDatabaseButtonId\"]";
 
     /*
@@ -225,6 +235,7 @@ public class Loc {
     public static String clientNetworkCollapse = "//*[@id=\"oj-collapsible-clusterClientNetworkCollapsible-header\"]";
     public static String defaultGatewayCheckBox = "//input[@class=\"oj-checkbox-nocomp defaultGatewayClient\" and @title=\"Default Gateway\"]";
     public static String defaultHosenameCheckBox = "//input[@class=\"oj-checkbox-nocomp defaultHostnameClient\" and @title=\"Default Hostname\"]";
+    public static String selectNetworkMediaSpeedDropList = "//label[contains(text(),'Select network media and speed')]/../../../following-sibling::div/div/div/div/span";
     public static String cnGatewayInput = "//label[contains(text(),'Gateway')]/../../following-sibling::div/input";
     public static String cnSubnetMaskDropList = "//label[contains(text(),'Subnet Mask')]/../../following-sibling::div";
     public static String cnSubnetMaskSearchField = "//input[@title=\"Search field\"]";
