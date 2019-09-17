@@ -31,24 +31,6 @@ public class Loc {
 
     public static String computeNodeDropList = "//*[@id=\"ojChoiceId_selectExaCompNode_selected\"]";
     public static String searchField = "//input[@title=\"Search field\"]";
-    public static String computeNodeX7_2RoCE = "//div[@class='oj-listbox-result-label' and contains(text(),'X7-2 RoCE')]";
-    public static String computeNodeX7_8RoCE = "//div[@class='oj-listbox-result-label' and contains(text(),'X7-8 RoCE')]";
-    public static String computeNodeX7_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X7-2']";
-    public static String computeNodeX7_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X7-8']";
-    public static String computeNodeX6_2 = "//div[@class='oj-listbox-result-label' and @aria-label='ExadataX6-2']";
-    public static String computeNodeX6_8 = "//div[@class='oj-listbox-result-label' and @aria-label='ExadataX6-8']";
-    public static String computeNodeX5_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X5-8']";
-    public static String computeNodeX5_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X5-2']";
-    public static String computeNodeX4_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X4-8']";
-    public static String computeNodeX4_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X4-2']";
-    public static String computeNodeX4SE = "//div[@class='oj-listbox-result-label' and @aria-label='X4 Storage Expansion']";
-    public static String computeNodeX3_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X3-8']";
-    public static String computeNodeX3_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X3-2']";
-    public static String computeNodeX3SE = "//div[@class='oj-listbox-result-label' and @aria-label='X3 Storage Expansion']";
-    public static String computeNodeX2_8 = "//div[@class='oj-listbox-result-label' and @aria-label='X2-8']";
-    public static String computeNodeX2_2 = "//div[@class='oj-listbox-result-label' and @aria-label='X2-2']";
-    public static String computeNodeX2SE = "//div[@class='oj-listbox-result-label' and @aria-label='X2 Storage Expansion']";
-
     public static String rackSizeDropList = "//*[@id=\"ojChoiceId_selectRackSize_selected\"]";
     public static String rackSizeElastic = "//div[@class='oj-listbox-result-label' and text()=\"Elastic\"]";
     public static String rackSizeFull = "//div[contains(text(),'Full')]";
@@ -67,17 +49,6 @@ public class Loc {
     public static String appSerialNumInput = inputAltXPath("Application/Serial #");
 
     public static String regionDropList = "//label[contains(text(),'Region')]/../../following-sibling::div/div/span";
-    public static String regionAfrica = "//div[@class='oj-listbox-result-label' and @aria-label='Africa']";
-    public static String regionAmerica = "//div[@class='oj-listbox-result-label' and @aria-label='America']";
-    public static String regionAntarctica = "//div[@class='oj-listbox-result-label' and @aria-label='Antarctica']";
-    public static String regionArctic = "//div[@class='oj-listbox-result-label' and @aria-label='Arctic']";
-    public static String regionAsia = "//div[@class='oj-listbox-result-label' and @aria-label='Asia']";
-    public static String regionAtlantic = "//div[@class='oj-listbox-result-label' and @aria-label='Atlantic']";
-    public static String regionAustralia = "//div[@class='oj-listbox-result-label' and @aria-label='Australia']";
-    public static String regionEurope = "//div[@class='oj-listbox-result-label' and @aria-label='Europe']";
-    public static String regionIndian = "//div[@class='oj-listbox-result-label' and @aria-label='Indian']";
-    public static String regionOther = "//div[@class='oj-listbox-result-label' and @aria-label='Other']";
-    public static String regionPacific = "//div[@class='oj-listbox-result-label' and @aria-label='Pacific']";
 
     public static String timezoneDropList = "//div[@class='oj-label-group']/label[contains(text(),'Timezone')]/../../following-sibling::div/div";
     public static String timezoneSearchField = "/html/body/div[1]/div/div/div/div/input";
@@ -106,9 +77,6 @@ public class Loc {
         Operating System
      */
     public static String osChoiceDropList = "//*[@id=\"ojChoiceId_selectOsChoice_selected\"]";
-    public static String osCLinuxOVM = "//*[@id=\"ojChoiceId_selectOsChoice_selected\"]";
-    public static String osCLinuxPhysical = "//div[@class='oj-listbox-result-label' and @aria-label='All Linux Physical']";
-    public static String osCCustom = "//div[@class='oj-listbox-result-label' and @aria-label='Custom']";
     public static String osSaveBtn = "//*[@id=\"osSaveBtn\"]";
 
     /*
@@ -116,16 +84,17 @@ public class Loc {
       */
     public static String removePDUsCheckBox = "/html/body/div[3]/div/div[2]/div/div[2]/div/div/div[3]/div/div/div/div[2]/div[1]/div/input[@type='checkbox']";
     public static String rackNwAdvBtn = "//button[@id=\"RackNwAdvancedButton\"]";
-    public static String adminNetworkCollapse = "//label[contains(text(), 'Admin Network')]";
+    public static String enableVlanCheckBox = "//input[@id=\"rackNetworkVlanCb\"]/following-sibling::label[contains(text(),'Enable Vlan')]";
+    public static String enableVlanCloseBtn = "//input[@id=\"rackNetworkVlanCb\"]/../../../../following-sibling::div/button[@id=\"preferencesCloseButton\"]";
+    //public static String adminNetworkCollapse = "//label[contains(text(), 'Admin Network')]";
 
-    public static String gateWayCheckBox = "//input[@alt='Default Gateway']";
-    public static String gateWayInput = inputAltXPath("Gateway");
-    public static String anStartIPAddress = inputAltXPath("Start IP");
+    public static String adminNetworkDefaultGatewayCheckBox = "//div[@id=\"rackNetworksTab_Admin\"]/div[4]/div/div/div/div[3]/div/div/input[@alt=\"Default Gateway\"]";
+    public static String adminNetworkDefaultHostnameCheckBox = "//div[@id=\"rackNetworksTab_Admin\"]/div[4]/div/div/div/div[4]/div/div/input[@alt=\"Default Hostname\"]";
+    public static String anGateWayInput = "//div[@id=\"rackNetworksTab_Admin\"]/div[4]/div/div[@class=\"networkUiElements\"]/div/div[6]/div[1]/div[2]/input";
+    public static String anStartIPAddress = "//div[@id=\"rackNetworksTab_Admin\"]/div[4]/div/div[@class=\"networkUiElements\"]/div/div[6]/div[2]/div[2]/input";
 
     public static String anSubnetMaskDropList = "//label[contains(text(),'Subnet Mask')]/../../following-sibling::div/div";
-
     public static String anSubnetMaskSearchField = "/html/body/div[1]/div/div/div/div/input";
-    public static String anSubnetMask2552552400 = "//div[@aria-label='255.255.240.0']";
 
     public static String anDomainNameInput = "//input[@alt=\"Domain Name\"]";
 
@@ -133,12 +102,21 @@ public class Loc {
 
     public static String adminNetworkApplyBtn = "//*[@id=\"saveRackNetworksButtonAdmin\"]";
 
+    public static String enableActiveBondingCheckBox = inputAltXPath("Active Bonding");
     public static String pnStartIPAddress = "//label[contains(text(),'Start IP Address')]/../../following-sibling::div/input[@alt=\"Start IP Address\"]";
-    //public static String pnSubnetMaskDropList = "";
-    //public static String pnSubnetMaskSearchField = "";
-    //public static String pnSubnetMask2552552480 = "";
-    //public static String pnDomainNameInput = "";
+    public static String pnSubnetMaskDropList = "//div[@id=\"rackNetworksTab_Private\"]/div[4]/div/div/div/div[5]/div/div[2]/div/span";
+
     public static String privateNetworkApplyBtn = "//*[@id=\"saveRackNetworksButtonPrivate\"]";
+
+    // Admin network Review and Edit
+    public static String adminNetworkReviewAndEditCollapse = "//label[text()=\"Admin network Review and Edit\"]";
+    public static String lookupAdminNetworkIPBtn = "//button[@id=\"lookupAdminNetworkButton\"]";
+    public static String adminReviewAndEditUpdateBtn = "//button[@id=\"adminReviewAndEdit\"]";
+
+    // Client network Review and Edit
+    public static String clientNetworkReviewAndEditCollapse = "//label[text()=\"Client network Review and Edit\"]";
+    public static String lookupClientNetworkIPBtn = "//button[@id=\"lookupClientNetworkButton\"]";
+    public static String clientReviewAndEditUpdateBtn = "//button[@id=\"lookupClientNetworkButton\"]//following-sibling::button[@id=\"saveNetworkAdmin\"]";
 
     /*
         Modify Masks
@@ -157,11 +135,11 @@ public class Loc {
     public static String storageILOMStartIDInput = "//label[contains(text(),'Storage ILOM Start Id')]/../../following-sibling::div/input";
 
     public static String ciscoSwitchInput = "//label[contains(text(),'Cisco Switch')]/../../following-sibling::div/input";
-    public static String infiniBandLeaf1Input = "//label[contains(text(),'InfiniBand Leaf')]/../../following-sibling::div/input";
+    public static String infiniBandLeaf1Input = "//div[@id=\"masks\"]/div/div[11]/div[4]/div[1]/div/div/label[contains(text(),'Infiniband Leaf')]/../../following-sibling::div/input";
     public static String pduAInput = "//label[contains(text(),'PDU-A')]/../../following-sibling::div/input";
-    public static String infiniBandSpineInput = "//label[contains(text(),'InfiniBand Spine')]/../../following-sibling::div/input";
-    public static String infinibandLeaf2Input = "//label[contains(text(),'Infiniband Leaf')]/../../following-sibling::div/input";
-    public static String pdbBInput = "//label[contains(text(),'PDU-B')]/../../following-sibling::div/input";
+    public static String infiniBandSpineInput = "//label[contains(text(),'Infiniband Spine')]/../../following-sibling::div/input";
+    public static String infinibandLeaf2Input = "//div[@id=\"masks\"]/div/div[11]/div[4]/div[2]/div/div/label[contains(text(),'Infiniband Leaf')]/../../following-sibling::div/input";
+    public static String pduBInput = "//label[contains(text(),'PDU-B')]/../../following-sibling::div/input";
 
     public static String networkMasksApplyBtn = "//div[@id=\"masks\"]/div/div/button/div/span[text()=\"Apply\"]";
     public static String computePrivateNetworkMasksInput = "//div[contains(text(),'Compute private masks')]/../following-sibling::div[2]/div[1]/div[2]/input";
@@ -184,6 +162,8 @@ public class Loc {
     /*
         Users
      */
+    public static String addUsersBtn = "//div[@id=\"usergroup-container\"]/div[1]/div/div/div[2]/div[2]/button[@alt=\"add UserGroup Collection\"]";
+
     public static String defaultRadioBtn = "//span[contains(text(),'Default')]/../preceding-sibling::span";
     public static String roleSeperatedRadioBtn = "//span[contains(text(),'Role Separated')]/../preceding-sibling::span";
     public static String customRadioBtn = "//span[contains(text(),'Custom')]/../preceding-sibling::span";
@@ -192,10 +172,14 @@ public class Loc {
     /*
         Clusters
      */
+    public static String addClusterBtn = "//button[@alt=\"Add Cluster Button\"]";
+
     public static String gridSoftwareVersionDropList = "//input[@alt=\"Grid Software Version\"]/preceding-sibling::div";
     public static String gridVersionText = "//div[@aria-label=\"19.3.0.0 RU190416\"]";
     public static String gridInfrastructureHomeLocationInput = "//input[@alt=\"Grid Infrastructure Home Location\"]";
     public static String addAllNodesbtn = "//button[@alt=\"Add All Nodes Button\"]";
+    public static String guestCoresInput = inputAltXPath("Cores");
+    public static String guestMemoryInput = inputAltXPath("Memory");
     public static String submitClusterBtn = "//*[@id=\"submitClusterButton_v2\"]";
 
     /*
@@ -204,51 +188,109 @@ public class Loc {
     public static String advancedCheckBox = "//input[@title=\"Advanced options\"]";
     public static String enableSparseDiskgroupCheckBox = "//input[@title=\"Enable sparse diskgroup\"]";
     public static String enableASMSSCheckBox = "//input[@title=\"Enable Asm Scoped Security\"]";
+    public static String configureAcfsBtn = "//button[@id=\"configureAcfsBtnId\"]";
+    public static String enableACFSForDGCheckBox = "//input[@title=\"Enable acfs diskgroup\"]";
+    public static String acfsConfigureSaveBtn = "//input[@title=\"Enable acfs diskgroup\"]/../../../following-sibling::div/button/div/span[text()='Save']";
+
+    public static String diskgroupLayoutDropBox = "//label[contains(text(), 'Diskgroup layout')]/../../following-sibling::div/div[1]";
+    public static String diskgroupLayoutCustom = "//div[text()=\"Custom\"]";
+    public static String addNewDiskgroupBtn = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[1]/div[10]/div/div/button[@alt=\"add new diskgroup\"]";
 
     public static String redundancyDropList1 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[1]/div[3]/div[2]/div/span";
     public static String redundancyDropList2 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[2]/div[3]/div[2]/div/span";
     public static String redundancyDropList3 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[3]/div[3]/div[2]/div/span";
-    public static String redundancyHigh = "//div[@aria-label=\"HIGH\"]";
-    public static String redundancyNormal = "//div[@aria-label=\"NORMAL\"]";
+    public static String redundancyDropList4 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[4]/div[3]/div[2]/div/span";
 
-    public static String diskgroupName1 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[1]/div[1]/div[2]/input";
-    public static String diskgroupName2 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[2]/div[1]/div[2]/input";
-    public static String diskgroupName3 = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[3]/div[1]/div[2]/input";
+    public static String diskgroup1Name = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[1]/div[1]/div[2]/input";
+    public static String diskgroup2Name = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[2]/div[1]/div[2]/input";
+    public static String diskgroup3Name = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[3]/div[1]/div[2]/input";
+    public static String diskgroup4Name = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[4]/div[1]/div[2]/input";
+
+    public static String dg3TypeDropbox = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[3]/div[2]/div[2]/div";
+    public static String dg4TypeDropbox = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[4]/div[2]/div[2]/div";
+    public static String dgTypeOther = "//div[@aria-label=\"OTHER\"]";
+    public static String dg1SizeInput = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[1]/div[5]/div[2]/input";
+    public static String dg2SizeInput = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[2]/div[5]/div[2]/input";
+    public static String dg3SizeInput = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[3]/div[5]/div[2]/input";
+    public static String dg4SizeInput = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[4]/div[5]/div[2]/input";
+    public static String dg3SizeTypeDropbox = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[3]/div[6]/div[2]/div[1]";
+    public static String dg4SizeTypeDropbox = "//div[@id=\"diskGroupView\"]/div[2]/div/div[4]/div[4]/div[6]/div[2]/div[1]";
+    public static String usableSizeType = "//div[text()='usable size']";
+
     public static String saveDiskgroupBtn = "//*[@id=\"saveDiskgroupBtnId\"]";
 
     /*
         Database Home
      */
-    public static String dbHomeVersionDropList = "//input[@alt=\"Select Database Home version\"]/preceding-sibling::div";
-    public static String dbHomeText = "//div[@aria-label=\"19.3.0.0 RU190416\"]";
+    public static String addDBHomeBtn = "//button[@id=\"addDatabaseHomeButton\"]";
+    public static String selectClusterDropList = "//label[contains(text(),'Select Cluster')]/../../following-sibling::div/div/input";
+    public static String dbHomeVersionDropList = "//label[contains(text(),'Database Home Version')]/../div/input[@alt=\"Select Database Home version\"]";
     public static String submitDBHomeBtn = "//*[@id=\"submitDatabaseHomeButton\"]";
 
     /*
         Database
      */
+    public static String addDatabaseBtn = "//button[@id=\"addDatabaseButton\"]";
+    public static String databaseHomeDropList = "//label[text()='Database Home']/../../following-sibling::div/div/input";
     public static String enableCDBCheckbox = "//input[@title=\"Enable CDB\"]";
+    public static String pdbNameInput = "//input[@alt=\"PDB Name\"]";
     public static String submitDBBtn = "//*[@id=\"submitDatabaseButtonId\"]";
 
     /*
         Client Network
      */
-    public static String clientNetworkCollapse = "//*[@id=\"oj-collapsible-clusterClientNetworkCollapsible-header\"]";
-    public static String defaultGatewayCheckBox = "//input[@class=\"oj-checkbox-nocomp defaultGatewayClient\" and @title=\"Default Gateway\"]";
-    public static String defaultHosenameCheckBox = "//input[@class=\"oj-checkbox-nocomp defaultHostnameClient\" and @title=\"Default Hostname\"]";
+    public static String adminNetworkCollapse = "//div[@id=\"clusterNetworkAccordionPage\"]/div/label[text()=\"Admin Network\"]";
+    public static String clusterNetworkAdvancedBtn = "//div[@id=\"network_container_id\"]//button[@id=\"hwAdvancedButton\"]";
+    public static String clusterNetworkEnableVlanCheckBox = "//div[@id=\"nwAdvancedDialog_layer\"]//label[contains(text(),'Enable Vlan')]";
+    public static String clusterNetworkEnableVlanCloseBtn = "//div[@id=\"nwAdvancedDialog\"]/div[4]/button[@id=\"preferencesCloseButton\"]";
+    public static String enableAdminNetworkBtn = "//label[text()='Enable Admin network']";
+    public static String clusterNetworkAdminNetworkDefaultGatewayCheckBox = "//div[@id=\"clusterAdminNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[3]/div/div/input[@alt=\"Default Gateway\"]";
+    public static String clusterNetworkAdminNetworkDefaultHostnameCheckBox = "//div[@id=\"clusterAdminNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[4]/div/div/input[@alt=\"Default Hostname\"]";
+    public static String clusterNetworkAdminGatewayInput = "//div[@id=\"clusterAdminNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[6]/div[1]/div[2]/input";
+    public static String clusterNetworkAdminStartIPInput = "//div[@id=\"clusterAdminNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[6]/div[2]/div[2]/input";
+    public static String clusterNetworkAdminSubnetMaskDropList = "//div[@id=\"clusterAdminNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[7]/div/div[2]/div/span";
+    public static String clusterNetworkAdminSubnetMaskSearckField = "//input[@title=\"Search field\"]";
+    public static String clusterNetworkAdminModifyMasksBtn = "//div[@id=\"clusterAdminNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[10]/div/button";
+    public static String clusterNetworkAdminComputeNameMaskInput = "//input[@alt=\" Compute Name Mask\"]";
+    public static String clusterNetworkAdminComputeNameStartIdInput = "//input[@alt=\"Compute Name Start Id\"]";
+    public static String clusterNetworkAdminNetworkReviewAndEditCollapse = "//div[@id=\"clusterAdminNetworkCollapsible\"]/div/div/div/label[text()='Admin network Review and Edit']";
+    public static String clusterNetworkAdminNetworkLookUpIPBtn = "//div[@id=\"clusterAdminNetworkCollapsible\"]/div/div/div/div/div/div/div[3]/button[@id=\"lookupAdminNetworkButton\"]";
+    public static String clusterNetworkAdminNetworkEditUpdateBtn = "//div[@id=\"clusterAdminNetworkCollapsible\"]/div/div/div/div/div/div/div[3]/button[@id=\"adminReviewAndEdit\"]";
+    public static String saveClusterNetworkAdminBtn = "//button[@id=\"saveClusterNetworkBtn_admin\"]";
+
+    public static String clientNetworkCollapse = "//div[@id=\"clusterNetworkAccordionPage\"]/div/label[text()=\"Client Network\"]";
+    public static String clientNetworkDefaultGatewayCheckBox = "//div[@id=\"clusterClientNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[3]/div/div/input[@alt=\"Default Gateway\"]";
+    public static String clientNetworkDefaultHostnameCheckBox = "//div[@id=\"clusterClientNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[4]/div/div/input[@alt=\"Default Hostname\"]";
     public static String selectNetworkMediaSpeedDropList = "//label[contains(text(),'Select network media and speed')]/../../../following-sibling::div/div/div/div/span";
-    public static String cnGatewayInput = "//label[contains(text(),'Gateway')]/../../following-sibling::div/input";
-    public static String cnSubnetMaskDropList = "//label[contains(text(),'Subnet Mask')]/../../following-sibling::div";
+    public static String clientNetworkVlanInput = "//div[@id=\"clusterClientNetworkCollapsible\"]//label[contains(text(),'Vlan')]/../../following-sibling::div/input";
+    public static String cnGatewayInput = "//div[@id=\"clusterClientNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[6]/div[1]/div[2]/input";
+    public static String cnSubnetMaskDropList = "//div[@id=\"clusterClientNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[7]/div/div[2]/div/span";
     public static String cnSubnetMaskSearchField = "//input[@title=\"Search field\"]";
-    public static String cnSubnetMast2552552480 = "//span[contains(text(),'255.255.248.0')]";
-    public static String startIPAddressInput = "//label[contains(text(),'Start IP Address')]/../../following-sibling::div/input";
+    public static String clientStartIPAddressInput = "//div[@id=\"clusterClientNetworkCollapsible\"]//div[@class=\"networkUiElements\"]/div/div[6]/div[2]/div[2]/input";
+    public static String clientNetworkModifyMasksBtn = "//div[@id=\"clusterClientNetworkCollapsible\"]//span[text()='Modify Masks']";
     public static String saveClusterNetworkBtn = "//*[@id=\"saveClusterNetworkBtn_client\"]";
+
+    // PrivateNetwork
+    public static String privateNetworkCollapse  = "//div[@id=\"clusterNetworkAccordionPage\"]/div/label[text()=\"Private Network\"]";
+    public static String privateNetworkStartIPAddressInput = "//div[@id=\"clusterPrivateNetworkCollapsible\"]//input[@alt=\"Start IP Address\"]";
+    public static String savePrivateNetworkBtn = "//button[@id=\"saveClusterNetworkBtn_private\"]";
 
     // BackupNetwork
     public static String enableBackupNetworkBtn = "//label[contains(text(),'Enable Backup network')]";
-    public static String selectNetworkMediaSpeedDroplist = "//label[contains(text(),'Select network media and speed')]/../../../following-sibling::div/div/div/div/span";
-    public static String SFP28PCI = "//div[text()=\"SFP28 PCI Dual Port Card\"]";
-    public static String backupNetworkGateway = "//input[@alt=\"Gateway\"]";
-    public static String backupNetworkApplyBtn = "//button[@title='Apply Network changes']";
+    public static String sharedClientNetworkPortCheckBox = "//label[contains(text(), 'Shared client network port')]";
+    public static String backupNetworkVlanInput = "//div[@id=\"clusterBackupNetworkCollapsible\"]//label[contains(text(),'Vlan')]/../../following-sibling::div/input";
+    public static String backupNetworkGatewayInput = "//div[@id=\"clusterBackupNetworkCollapsible\"]//input[@alt=\"Gateway\"]";
+    public static String backupNetworkStartIPAddressInput = "//div[@id=\"clusterBackupNetworkCollapsible\"]//input[@alt=\"Start IP Address\"]";
+    public static String backupNetworkSubnetMaskDropList = "//div[@id=\"clusterBackupNetworkCollapsible\"]//label[contains(text(),'Subnet Mask')]/../../following-sibling::div/div/span";
+    public static String backupNetworkSubnetMaskSearchField = "//input[@title=\"Search field\"]";
+    public static String backupNetworkModifyMasksBtn = "//div[@id=\"clusterBackupNetworkCollapsible\"]//button[@title=\"Modify masks\"]";
+    public static String backupNameInput = "//div[text()='Compute backup details']/../following-sibling::div[2]/div/div[2]/input";
+    public static String backupStartIDInput = "//div[text()='Compute backup details']/../following-sibling::div[3]/div/div[2]/input";
+    public static String backupDetailApplyBtn = "//div[text()='Compute backup details']/../../following-sibling::div/div[1]/button/div/span";
+    public static String backupNetworkApplyBtn = "//button[@id=\"saveClusterNetworkBtn_backup\"]";
+    public static String backupNetworkReviewAndEditCollapse = "//div[@id=\"clusterBackupNetworkReviewandEditCollapsible\"]/label";
+    public static String backupNetworkLookupIPBtn = "//div[@id=\"clusterBackupNetworkReviewandEditCollapsible\"]//button[@id=\"lookupClientNetworkButton\"]";
+    public static String backupNetworkIPUpdateBtn = "//div[@id=\"clusterBackupNetworkReviewandEditCollapsible\"]//button[@id=\"updateBackupNetwork\"]";
 
     /*
         Alerting
@@ -258,6 +300,8 @@ public class Loc {
     /*
         Comments
      */
+
+    public static String addCommnetsText = "//textarea[@id=\"esCommentTextArea\"]";
     public static String saveCommentsBtn = "//*[@id=\"saveCommentButton\"]";
 
     private static String inputAltXPath(String alt) {
