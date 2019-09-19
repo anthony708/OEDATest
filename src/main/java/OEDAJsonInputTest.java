@@ -39,7 +39,7 @@ public class OEDAJsonInputTest {
         Thread.sleep(4000);
     }
 
-    @Test
+     @Test
     public void test01*() throws Exception {
         System.out.println("Running test " + getMethodName());
         Thread.sleep(15000);
@@ -48,13 +48,11 @@ public class OEDAJsonInputTest {
 
         String rackSize = parseJson(jsonfile).getHardware().getRacks().get(0).getRackSize();
         String computeNode = parseJson(jsonfile).getHardware().getRacks().get(0).getComputeNodeFamily();
-        if (rackSize.equals("*")) {
+        if (rackSize.equals("RoCE")) {
             computeNode = computeNode + " " + rackSize;
-
         }
         clearAndSendKeys(searchField, computeNode, xpathHelper(searchField));
         Thread.sleep(100);
-        String xpath = getComputeNodeFamilyXpath(jsonfile, computeNode);
         driver.findElement(By.xpath(getComputeNodeFamilyXpath(jsonfile, computeNode))).click();
         Thread.sleep(100);
         driver.findElement(By.xpath(rackSizeDropList)).click();
@@ -76,9 +74,8 @@ public class OEDAJsonInputTest {
         driver.findElement(By.xpath(addRackBtn)).click();
         Thread.sleep(3000);
 
-        driver.findElement(By.xpath(rackPrefixInput)).clear();
         String rackPrefix = parseJson(jsonfile).getHardware().getRacks().get(0).getRackPrefix();
-        driver.findElement(By.xpath(rackPrefixInput)).sendKeys(rackPrefix);
+        clearAndSendkeys(rackPrefixInput, rackPrefix);
         Thread.sleep(100);
 
         boolean spineSwitchEnabled = parseJson(jsonfile).getHardware().getRacks().get(0).isSpineSwitchEnabled();
@@ -284,7 +281,8 @@ public class OEDAJsonInputTest {
 
         String isActiveBonded = parseJson(jsonfile).getRackNetworks().getRackPrivateNetworkList().get(0).getComputePrivateNetwork().getIsActiveBonded();
         try {
-            if (isActiveBonded.equals("true")) {
+            scrollToXpath(enableActiveBondingCheckBox);
+            if (isActiveBonded.equals("true") && !driver.findElement(By.xpath(enableActiveBondingCheckBox)).isSelected()) {
                 driver.findElement(By.xpath(enableActiveBondingCheckBox)).click();
             }
         } catch (Exception e) {
@@ -333,11 +331,9 @@ public class OEDAJsonInputTest {
         System.out.println("Running test " + getMethodName());
         Thread.sleep(1000);
         int userNumber = parseJson(jsonfile).getUserGroups().size();
-        if (userNumber > 1) {
-            for (int i = 1; i < userNumber; i++) {
-                driver.findElement(By.xpath(addUsersBtn)).click();
-                Thread.sleep(100);
-            }
+        for (int i = 1; i < userNumber; i++) {
+            driver.findElement(By.xpath(addUsersBtn)).click();
+            Thread.sleep(100);
         }
 
         for (int i = 0; i < userNumber; i++) {
@@ -357,36 +353,47 @@ public class OEDAJsonInputTest {
         Thread.sleep(3000);
 
         int clusterNumber = parseJson(jsonfile).getClusters().size();
-        if (clusterNumber > 1) {
-            for (int i = 1; i < clusterNumber; i++) {
-                driver.findElement(By.xpath(addClusterBtn)).click();
-                Thread.sleep(100);
-            }
+        for (int i = 1; i < clusterNumber; i++) {
+            driver.findElement(By.xpath(addClusterBtn)).click();
+            Thread.sleep(100);
         }
 
         for (int i = 0; i < clusterNumber; i++) {
             String clusterName = parseJson(jsonfile).getClusters().get(i).getClusterName();
             driver.findElement(By.xpath(defineClusterTabXpath(clusterName))).click();
             String gridHomeLoc = parseJson(jsonfile).getClusters().get(i).getClusterHome();
-            int j = 0;
-            for (; j < clusterNumber; j++) {
-                if (driver.findElements(By.xpath(gridInfrastructureHomeLocationInput)).get(j).isDisplayed()) {
-                    break;
-                }
-            }
+            int j = xpathHelper(gridInfrastructureHomeLocationInput);
             clearAndSendKeys(gridInfrastructureHomeLocationInput, gridHomeLoc, j);
 
             try {
                 String gridVersion = parseJson(jsonfile).getClusters().get(i).getClusterVersion();
                 driver.findElements(By.xpath(gridSoftwareVersionDropList)).get(j).click();
                 String gridVersionInput = gridVersion.substring(0, 8) + " RU" + gridVersion.substring(9,15);
-                driver.findElements(By.xpath("//div[@aria-label=\"" + gridVersionInput + "\"]")).get(j).click();
+                driver.findElement(By.xpath("//div[@aria-label=\"" + gridVersionInput + "\"]")).click();
 
             } catch (Exception e) {
                 System.out.println("Grid version is not correct");
             }
             scrollToElement(driver.findElements(By.xpath(addAllNodesbtn)).get(j));
             driver.findElements(By.xpath(addAllNodesbtn)).get(j).click();
+
+            String regionAndTimezone = parseJson(jsonfile).getClusters().get(i).getMachines().getMachine().get(0).getTimeZone();
+            String region = regionAndTimezone.split("/")[0];
+            String timezone = regionAndTimezone.split("/")[1];
+            try {
+                if (!driver.findElements(By.xpath(clustersRegionDropList)).get(i).getText().equals(region)) {
+                    driver.findElements(By.xpath(clustersRegionDropList)).get(i).click();
+                    driver.findElement(By.xpath("//div[@aria-label='" + region + "']")).click();
+                }
+
+                if (!driver.findElements(By.xpath(clustersTimezoneDropList)).get(i).getText().equals(timezone)) {
+                    driver.findElements(By.xpath(clustersTimezoneDropList)).get(i).click();
+                    scrollToXpath("//div[@aria-label='" + timezone + "']");
+                    driver.findElement(By.xpath("//div[@aria-label='" + timezone + "']")).click();
+                }
+            } catch (Exception e) {
+                System.out.println("Errors: region and timezone");
+            }
 
             try {
                 if (driver.findElements(By.xpath(guestCoresInput)).get(j).isDisplayed()) {
@@ -439,8 +446,8 @@ public class OEDAJsonInputTest {
                 String acfsVolumeName = parseJson(jsonfile).getDiskgroups().getClusters().getCluster().get(i).getDiskGroups().getDiskGroup().get(0).getAcfsVolumeName();
                 if (acfsVolumeName != null) {
                     driver.findElements(By.xpath(configureAcfsBtn)).get(j).click();
-                    driver.findElements(By.xpath(enableACFSForDGCheckBox)).get(0).click();
-                    driver.findElements(By.xpath(acfsConfigureSaveBtn)).get(0).click();
+                    driver.findElements(By.xpath(enableACFSForDGCheckBox)).get(xpathHelper(enableACFSForDGCheckBox)).click();
+                    driver.findElements(By.xpath(acfsConfigureSaveBtn)).get(xpathHelper(acfsConfigureSaveBtn)).click();
                 }
             } catch (Exception e) {
                 System.out.println("Errors in setting acfs");
@@ -578,7 +585,7 @@ public class OEDAJsonInputTest {
                 String pdbName = parseJson(jsonfile).getDatabaseDataObjects().getDatabaseDataObject().get(i).getPdbNames().getPdbName().get(0);
                 if (pdbName != null && !driver.findElements(By.xpath(enableCDBCheckbox)).get(xpathHelper(enableCDBCheckbox)).isSelected()) {
                     driver.findElements(By.xpath(enableCDBCheckbox)).get(xpathHelper(enableCDBCheckbox)).click();
-                    clearAndSendKeys(pdbNameInput, pdbName, xpathHelper(enableCDBCheckbox));
+                    clearAndSendKeys(pdbNameInput, pdbName, xpathHelper(pdbNameInput));
                 }
             } catch (Exception e) {
                 System.out.println("Do not support pdb here");
@@ -670,6 +677,7 @@ public class OEDAJsonInputTest {
             System.out.println("Errors: Admin network review and edit");
         }
 
+        // client network
         for (int i = 0; i < clusterNumber; i++) {
             driver.findElement(By.xpath(clientNetowrkClusterTab(i + 1))).click();
             String clientNetworkDefaultGateway = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getDefaultGateway();
@@ -691,7 +699,8 @@ public class OEDAJsonInputTest {
                 }
             } catch (Exception e) {
             }
-            scrollToXpath(selectNetworkMediaSpeedDropList);
+
+            scrollToElement(driver.findElements(By.xpath(selectNetworkMediaSpeedDropList)).get(i));
             try {
                 String uiNetworkDescription = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getUiNetworkDescription();
                 String networkMediaAndSpeed = driver.findElements(By.xpath(selectNetworkMediaSpeedDropList)).get(i).getText();
@@ -842,7 +851,7 @@ public class OEDAJsonInputTest {
             }
         }
     }
-
+    
     @Test
     public void test10*() throws Exception {
         System.out.println("Running test " + getMethodName());
