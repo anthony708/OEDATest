@@ -1,4 +1,3 @@
-import oracle.onecommand.escommon.model.NetworkPool;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.*;
@@ -6,30 +5,29 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import static locators.Loc.*;
-import static *.OEDAJsonInputTestHelper.*;
+import static oracle.onecommand.tests.webUi.seleniumTests.OEDAJsonInputTestHelper.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class OEDAJsonInputTest {
     private static WebDriver driver;
-    static final String jsonfile = "*";
+    static final String jsonfile = "*.json";
 
     @BeforeClass
     public static void setUp() throws IOException {
 
-        String url = "*";
-        String browserBinary = "/Applications/Firefox.app/Contents/MacOS/firefox";
-        String geckodriver = "*/Projects/libs/geckodriver";
+        String url = "http://*:8080";
+        String browserBinary = "*/MacOS/firefox";
+        String geckodriver = "*/libs/geckodriver";
         System.setProperty("webdriver.gecko.driver", geckodriver);
 
         FirefoxOptions options = new FirefoxOptions();
         options.setBinary(browserBinary);
 
         driver = new FirefoxDriver(options);
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
         driver.get(url);
     }
 
@@ -39,38 +37,21 @@ public class OEDAJsonInputTest {
         Thread.sleep(4000);
     }
 
-     @Test
+    @Test
     public void test01*() throws Exception {
         System.out.println("Running test " + getMethodName());
         Thread.sleep(15000);
-        driver.findElement(By.xpath(computeNodeDropList)).click();
-        Thread.sleep(100);
-
-        String rackSize = parseJson(jsonfile).getHardware().getRacks().get(0).getRackSize();
         String computeNode = parseJson(jsonfile).getHardware().getRacks().get(0).getComputeNodeFamily();
-        if (rackSize.equals("RoCE")) {
-            computeNode = computeNode + " " + rackSize;
-        }
-        clearAndSendKeys(searchField, computeNode, xpathHelper(searchField));
-        Thread.sleep(100);
-        driver.findElement(By.xpath(getComputeNodeFamilyXpath(jsonfile, computeNode))).click();
-        Thread.sleep(100);
+        String rackSize = parseJson(jsonfile).getHardware().getRacks().get(0).getRackSize();
+        String diskSize = parseJson(jsonfile).getHardware().getRacks().get(0).getDiskSize();
+        driver.findElement(By.xpath(computeNodeDropList)).click();
+        driver.findElements(By.xpath(searchField)).get(xpathHelper(searchField)).sendKeys(computeNode);
+        driver.findElement(By.xpath(getComputeNodeFamilyXpath(computeNode))).click();
         driver.findElement(By.xpath(rackSizeDropList)).click();
-        Thread.sleep(100);
-        try {
-            driver.findElement(By.xpath(getRackSizeXpath(jsonfile))).click();
-            Thread.sleep(100);
-        } catch (Exception e) {
-            System.out.println("rack size not found in rackSize droplist");
-        }
+        driver.findElement(By.xpath(getRackSizeXpath(rackSize))).click();
         driver.findElement(By.xpath(diskSizeDropList)).click();
-        Thread.sleep(100);
-        try {
-            driver.findElement(By.xpath(getDiskSizeXpath(jsonfile))).click();
-            Thread.sleep(100);
-        } catch (Exception e) {
-            System.out.println("disk size not found in diskSize droplist");
-        }
+        driver.findElement(By.xpath(getDiskSizeXpath(diskSize))).click();
+
         driver.findElement(By.xpath(addRackBtn)).click();
         Thread.sleep(3000);
 
@@ -155,9 +136,13 @@ public class OEDAJsonInputTest {
         Thread.sleep(100);
 
         // add WriteBack Flash Cache
-        String writeBackFC = parseJson(jsonfile).getClusters().get(0).getMachines().getMachine().get(2).getWriteBackFlashCache();
-        if (writeBackFC.equals("true")) {
-            driver.findElement(By.xpath(enableWBFCIcon)).click();
+        try {
+            String writeBackFC = parseJson(jsonfile).getClusters().get(0).getMachines().getMachine().get(2).getWriteBackFlashCache();
+            if (writeBackFC.equals("true")) {
+                driver.findElement(By.xpath(enableWBFCIcon)).click();
+            }
+        } catch (Exception e) {
+            System.out.println("Error: writeback flash cache");
         }
 
         driver.findElement(By.xpath(hardwareApplyBtn)).click();
@@ -181,13 +166,6 @@ public class OEDAJsonInputTest {
     @Test
     public void test03*() throws Exception {
         System.out.println("Running test " + getMethodName());
-//        String vlan = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(0).getClientNetwork().getVlanId();
-//        if (vlan != null) {
-//            driver.findElement(By.xpath(advancedCheckBox)).click();
-//            driver.findElement(By.xpath(enableVlanCheckBox)).click();
-//            driver.findElement(By.xpath(enableVlanCloseBtn)).click();
-//        }
-
         try {
             String defaultGateway = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getComputeAdminNetwork().getDefaultGateway();
             String defaultHostname = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getComputeAdminNetwork().getDefaultHostname();
@@ -241,19 +219,23 @@ public class OEDAJsonInputTest {
         clearAndSendkeys(storageILOMNameMaskInput, storageILOMNameMask);
         clearAndSendkeys(storageILOMStartIDInput, storageILOMStartId);
 
-        String ciscoSwitch = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getCiscoswitchMask();
-        String infiniBandLeaf1 = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getInfinibandLeaf1();
-        String pduA = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getPduaMask();
-        String infiniBandSpine = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getInfinibandSpine();
-        String infinibandLeaf2 = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getInfinibandLeaf2();
-        String pduB = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getPdubMask();
-        clearAndSendkeys(ciscoSwitchInput, ciscoSwitch);
-        clearAndSendkeys(infiniBandLeaf1Input, infiniBandLeaf1);
-        clearAndSendkeys(pduAInput, pduA);
-        clearAndSendkeys(infiniBandSpineInput, infiniBandSpine);
-        clearAndSendkeys(infinibandLeaf2Input, infinibandLeaf2);
-        clearAndSendkeys(pduBInput, pduB);
-        Thread.sleep(500);
+        try {
+            String ciscoSwitch = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getCiscoswitchMask();
+            String infiniBandLeaf1 = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getInfinibandLeaf1();
+            String pduA = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getPduaMask();
+            String infiniBandSpine = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getInfinibandSpine();
+            String infinibandLeaf2 = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getInfinibandLeaf2();
+            String pduB = parseJson(jsonfile).getRackNetworks().getRackAdminNetworkList().get(0).getSwitchNetworkPool().getPdubMask();
+            clearAndSendkeys(ciscoSwitchInput, ciscoSwitch);
+            clearAndSendkeys(infiniBandLeaf1Input, infiniBandLeaf1);
+            clearAndSendkeys(pduAInput, pduA);
+            clearAndSendkeys(infiniBandSpineInput, infiniBandSpine);
+            clearAndSendkeys(infinibandLeaf2Input, infinibandLeaf2);
+            clearAndSendkeys(pduBInput, pduB);
+            Thread.sleep(500);
+        } catch (Exception e) {
+
+        }
         scrollToXpath(networkMasksApplyBtn);
         driver.findElement(By.xpath(networkMasksApplyBtn)).click();
         Thread.sleep(1000);
@@ -367,10 +349,11 @@ public class OEDAJsonInputTest {
 
             try {
                 String gridVersion = parseJson(jsonfile).getClusters().get(i).getClusterVersion();
-                driver.findElements(By.xpath(gridSoftwareVersionDropList)).get(j).click();
                 String gridVersionInput = gridVersion.substring(0, 8) + " RU" + gridVersion.substring(9,15);
-                driver.findElement(By.xpath("//div[@aria-label=\"" + gridVersionInput + "\"]")).click();
-
+                driver.findElements(By.xpath(gridSoftwareVersionDropList)).get(xpathHelper(gridSoftwareVersionDropList)).click();
+                Thread.sleep(100);
+                scrollToXpath("//div[contains(text(),'" + gridVersionInput + "')]");
+                driver.findElement(By.xpath("//div[contains(text(),'" + gridVersionInput + "')]")).click();
             } catch (Exception e) {
                 System.out.println("Grid version is not correct");
             }
@@ -603,19 +586,36 @@ public class OEDAJsonInputTest {
 
         int clusterNumber = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().size();
 
+        String adminNetworkGateway = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(0).getAdminNetwork().getGateway();
         for (int i = 0; i < clusterNumber; i++) {
 
-            String vlanID = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getVlanId();
-            if (i == 0 && vlanID != null && !driver.findElement(By.xpath(clusterNetworkAdvancedBtn)).isSelected()) {
-                driver.findElement(By.xpath(clusterNetworkAdvancedBtn)).click();
-                driver.findElement(By.xpath(clusterNetworkEnableVlanCheckBox)).click();
-                driver.findElement(By.xpath(clusterNetworkEnableVlanCloseBtn)).click();
+            try {
+                String vlanID = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getVlanId();
+                String pKey = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(0).getPkey();
+                if (i == 0 && (vlanID != null || pKey != null)) {
+                    if (!driver.findElement(By.xpath(clusterNetworkAdvancedBtn)).isSelected()) {
+                        driver.findElement(By.xpath(clusterNetworkAdvancedBtn)).click();
+                    }
+                    if (vlanID != null) {
+                        driver.findElement(By.xpath(clusterNetworkEnableVlanCheckBox)).click();
+                    }
+                    if (pKey != null) {
+                        driver.findElement(By.xpath(clusterNetworkEnablePKeyCheckBox)).click();
+                    }
+                    driver.findElement(By.xpath(clusterNetworkAdvancedCloseBtn)).click();
+                }
+            } catch (Exception e) {
+
             }
 
             // if virtual configuration, adminNetwork and privateNetworkList should not be null
-            NetworkPool adminNetwork = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getAdminNetwork();
-            if (adminNetwork != null) {
+
+            if (adminNetworkGateway != null) {
                 if (i == 0) {
+                    while (!driver.findElement(By.xpath(enableAdminNetworkBtn)).isDisplayed()) {
+                        driver.findElement(By.xpath(adminNetworkCollapse)).click();
+                        Thread.sleep(5000);
+                    }
                     driver.findElement(By.xpath(enableAdminNetworkBtn)).click();
                 }
                 driver.findElement(By.xpath(adminNetworkClusterTab(i + 1))).click();
@@ -646,6 +646,7 @@ public class OEDAJsonInputTest {
                 driver.findElements(By.xpath(clusterNetworkAdminSubnetMaskDropList)).get(i).click();
 
                 driver.findElements(By.xpath(clusterNetworkAdminSubnetMaskSearckField)).get(xpathHelper(clusterNetworkAdminSubnetMaskSearckField)).sendKeys(cnAdminNetworkSubnetMask);
+                Thread.sleep(100);
                 driver.findElement(By.xpath("//div[@aria-label=\"" + cnAdminNetworkSubnetMask + "\"]")).click();
 
                 driver.findElements(By.xpath(clusterNetworkAdminModifyMasksBtn)).get(i).click();
@@ -657,148 +658,191 @@ public class OEDAJsonInputTest {
 
             }
         }
-        driver.findElement(By.xpath(saveClusterNetworkAdminBtn)).click();
-        Thread.sleep(5000);
+        if (adminNetworkGateway != null) {
+            driver.findElement(By.xpath(saveClusterNetworkAdminBtn)).click();
+            Thread.sleep(5000);
 
-        // admin network review and edit
-        try {
-            scrollToXpath(clusterNetworkAdminNetworkReviewAndEditCollapse);
-            if (!driver.findElement(By.xpath(clusterNetworkAdminNetworkReviewAndEditCollapse)).isSelected()) {
-                driver.findElement(By.xpath(clusterNetworkAdminNetworkReviewAndEditCollapse)).click();
-                Thread.sleep(2000);
+            // admin network review and edit
+            try {
+                scrollToXpath(clusterNetworkAdminNetworkReviewAndEditCollapse);
+                if (!driver.findElement(By.xpath(clusterNetworkAdminNetworkReviewAndEditCollapse)).isSelected()) {
+                    driver.findElement(By.xpath(clusterNetworkAdminNetworkReviewAndEditCollapse)).click();
+                    Thread.sleep(2000);
+                }
+                driver.findElement(By.xpath(clusterNetworkAdminNetworkLookUpIPBtn)).click();
+                while (!driver.findElement(By.xpath(clusterNetworkAdminNetworkLookUpIPBtn)).isEnabled()) {
+                    Thread.sleep(1000);
+                }
+                driver.findElement(By.xpath(clusterNetworkAdminNetworkEditUpdateBtn)).click();
+                Thread.sleep(500);
+            } catch (Exception e) {
+                System.out.println("Errors: Admin network review and edit");
             }
-            driver.findElement(By.xpath(clusterNetworkAdminNetworkLookUpIPBtn)).click();
-            while (!driver.findElement(By.xpath(clusterNetworkAdminNetworkLookUpIPBtn)).isEnabled()) {
-                Thread.sleep(1000);
-            }
-            driver.findElement(By.xpath(clusterNetworkAdminNetworkEditUpdateBtn)).click();
-            Thread.sleep(500);
-        } catch (Exception e) {
-            System.out.println("Errors: Admin network review and edit");
         }
 
         // client network
-        for (int i = 0; i < clusterNumber; i++) {
-            driver.findElement(By.xpath(clientNetowrkClusterTab(i + 1))).click();
-            String clientNetworkDefaultGateway = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getDefaultGateway();
-            String clientNetowrkDefaultHostname = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getDefaultHostname();
-            if (clientNetworkDefaultGateway.equals("true")) {
-                if (!driver.findElements(By.xpath(clientNetworkDefaultGatewayCheckBox)).get(i).isSelected()) {
-                    driver.findElements(By.xpath(clientNetworkDefaultGatewayCheckBox)).get(i).click();
-                }
-            }
-            if (clientNetowrkDefaultHostname.equals("true")) {
-                if (!driver.findElements(By.xpath(clientNetworkDefaultHostnameCheckBox)).get(i).isSelected()) {
-                    driver.findElements(By.xpath(clientNetworkDefaultHostnameCheckBox)).get(i).click();
-                }
-            }
-            String clientNetworkVlan = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getVlanId();
-            try {
-                if (clientNetworkVlan != null && driver.findElements(By.xpath(clientNetworkVlanInput)).get(i).isDisplayed()) {
-                    clearAndSendKeys(clientNetworkVlanInput, clientNetworkVlan, i);
-                }
-            } catch (Exception e) {
-            }
-
-            scrollToElement(driver.findElements(By.xpath(selectNetworkMediaSpeedDropList)).get(i));
-            try {
-                String uiNetworkDescription = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getUiNetworkDescription();
-                String networkMediaAndSpeed = driver.findElements(By.xpath(selectNetworkMediaSpeedDropList)).get(i).getText();
-                if (!networkMediaAndSpeed.equals(uiNetworkDescription)) {
-                    driver.findElements(By.xpath(selectNetworkMediaSpeedDropList)).get(i).click();
-                    driver.findElement(By.xpath("//div[@aria-label=\"" + uiNetworkDescription + "\"]")).click();
-                }
-            } catch (Exception e) {
-                System.out.println("Errors in ui network description");
-            }
-
-            String gateway = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getGateway();
-            String startIPAddress = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getStartIp();
-            clearAndSendKeys(cnGatewayInput, gateway, xpathHelper(cnGatewayInput));
-            clearAndSendKeys(clientStartIPAddressInput, startIPAddress, xpathHelper(clientStartIPAddressInput));
-            String clientNetworkSubnetMask = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getSubnetMask();
-            driver.findElements(By.xpath(cnSubnetMaskDropList)).get(xpathHelper(cnSubnetMaskDropList)).click();
-            driver.findElements(By.xpath(cnSubnetMaskSearchField)).get(xpathHelper(cnSubnetMaskSearchField)).sendKeys(clientNetworkSubnetMask);
-            driver.findElement(By.xpath("//div[@aria-label='" + clientNetworkSubnetMask + "']")).click();
-            Thread.sleep(200);
-
-            System.out.println("*************************** Modify Client Network Masks ***********************************");
-            driver.findElements(By.xpath(clientNetworkModifyMasksBtn)).get(i).click();
-            Thread.sleep(100);
-            String clientNetworkName = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getNameMask();
-            String clientStartId = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getStartId();
-            String vipName = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getVipNameMask();
-            String vipStartId = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getVipStartId();
-            clearAndSendKeys(clientNetworkMaskNameInput, clientNetworkName, xpathHelper(clientNetworkMaskNameInput));
-            clearAndSendKeys(clientNetworkNameStartIDInput, clientStartId, xpathHelper(clientNetworkNameStartIDInput));
-            clearAndSendKeys(vipMaskNameInput, vipName, xpathHelper(vipMaskNameInput));
-            clearAndSendKeys(vipDetailsStartIDInput, vipStartId, xpathHelper(vipDetailsStartIDInput));
-
-            String scanDetailsName = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getScanNameMask();
-            String scanDetailsPort = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getScanPort();
-            clearAndSendKeys(scanDetailsNameInput, scanDetailsName, xpathHelper(scanDetailsNameInput));
-            clearAndSendKeys(scanDetailsPortInput, scanDetailsPort, xpathHelper(scanDetailsPortInput));
-            Thread.sleep(200);
-            driver.findElements(By.xpath(clientNetworkMasksApplyBtn)).get(xpathHelper(clientNetworkMasksApplyBtn)).click();
-
-            Thread.sleep(2000);
-        }
-
-        scrollToXpath(saveClusterNetworkBtn);
-        driver.findElement(By.xpath(saveClusterNetworkBtn)).click();
-        Thread.sleep(10000);
-
-        //Client network review and edit
-        System.out.println("************************* Client network review and edit ***********************");
-        try {
-            scrollToXpath(clientNetworkReviewAndEditCollapse);
-            if (!driver.findElement(By.xpath(clientNetworkReviewAndEditCollapse)).isSelected()) {
-                driver.findElement(By.xpath(clientNetworkReviewAndEditCollapse)).click();
+        String clientNetworkGateway = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(0).getClientNetwork().getGateway();
+        if (clientNetworkGateway != null) {
+            while (!driver.findElement(By.xpath(clientNetworkDefaultGatewayCheckBox)).isDisplayed()) {
+                driver.findElement(By.xpath(clientNetworkCollapse)).click();
                 Thread.sleep(5000);
             }
-            if (driver.findElement(By.xpath(lookupClientNetworkIPBtn)).isEnabled()) {
-                scrollToXpath(lookupClientNetworkIPBtn);
-                driver.findElement(By.xpath(lookupClientNetworkIPBtn)).click();
+            for (int i = 0; i < clusterNumber; i++) {
+                Thread.sleep(200);
+                driver.findElement(By.xpath(clientNetowrkClusterTab(i + 1))).click();
+                try {
+                    String clientNetworkDefaultGateway = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getDefaultGateway();
+                    String clientNetowrkDefaultHostname = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getDefaultHostname();
+                    if (clientNetworkDefaultGateway.equals("true")) {
+                        if (!driver.findElements(By.xpath(clientNetworkDefaultGatewayCheckBox)).get(i).isSelected()) {
+                            driver.findElements(By.xpath(clientNetworkDefaultGatewayCheckBox)).get(i).click();
+                        }
+                    }
+                    if (clientNetowrkDefaultHostname.equals("true")) {
+                        if (!driver.findElements(By.xpath(clientNetworkDefaultHostnameCheckBox)).get(i).isSelected()) {
+                            driver.findElements(By.xpath(clientNetworkDefaultHostnameCheckBox)).get(i).click();
+                        }
+                    }
+                } catch (Exception e) {
+
+                }
+
+                try {
+                    String clientNetworkVlan = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getVlanId();
+                    if (clientNetworkVlan != null && driver.findElements(By.xpath(clientNetworkVlanInput)).get(i).isDisplayed()) {
+                        clearAndSendKeys(clientNetworkVlanInput, clientNetworkVlan, i);
+                    }
+                } catch (Exception e) {
+                }
+
+                scrollToElement(driver.findElements(By.xpath(selectNetworkMediaSpeedDropList)).get(i));
+                try {
+                    String uiNetworkDescription = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getUiNetworkDescription();
+                    String networkMediaAndSpeed = driver.findElements(By.xpath(selectNetworkMediaSpeedDropList)).get(i).getText();
+                    if (!networkMediaAndSpeed.equals(uiNetworkDescription)) {
+                        driver.findElements(By.xpath(selectNetworkMediaSpeedDropList)).get(i).click();
+                        driver.findElement(By.xpath("//div[@aria-label=\"" + uiNetworkDescription + "\"]")).click();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Errors in ui network description");
+                }
+
+                String gateway = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getGateway();
+                String startIPAddress = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getStartIp();
+                clearAndSendKeys(cnGatewayInput, gateway, xpathHelper(cnGatewayInput));
+                clearAndSendKeys(clientStartIPAddressInput, startIPAddress, xpathHelper(clientStartIPAddressInput));
+                String clientNetworkSubnetMask = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getSubnetMask();
+                driver.findElements(By.xpath(cnSubnetMaskDropList)).get(xpathHelper(cnSubnetMaskDropList)).click();
+                driver.findElements(By.xpath(cnSubnetMaskSearchField)).get(xpathHelper(cnSubnetMaskSearchField)).sendKeys(clientNetworkSubnetMask);
+                driver.findElement(By.xpath("//div[@aria-label='" + clientNetworkSubnetMask + "']")).click();
+                Thread.sleep(200);
+
+                System.out.println("*************************** Modify Client Network Masks ***********************************");
+                driver.findElements(By.xpath(clientNetworkModifyMasksBtn)).get(i).click();
+                Thread.sleep(100);
+                String clientNetworkName = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getNameMask();
+                String clientStartId = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getStartId();
+                String vipName = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getVipNameMask();
+                String vipStartId = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getVipStartId();
+                clearAndSendKeys(clientNetworkMaskNameInput, clientNetworkName, xpathHelper(clientNetworkMaskNameInput));
+                clearAndSendKeys(clientNetworkNameStartIDInput, clientStartId, xpathHelper(clientNetworkNameStartIDInput));
+                clearAndSendKeys(vipMaskNameInput, vipName, xpathHelper(vipMaskNameInput));
+                clearAndSendKeys(vipDetailsStartIDInput, vipStartId, xpathHelper(vipDetailsStartIDInput));
+
+                String scanDetailsName = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getScanNameMask();
+                String scanDetailsPort = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getClientNetwork().getScanPort();
+                clearAndSendKeys(scanDetailsNameInput, scanDetailsName, xpathHelper(scanDetailsNameInput));
+                clearAndSendKeys(scanDetailsPortInput, scanDetailsPort, xpathHelper(scanDetailsPortInput));
+                Thread.sleep(200);
+                driver.findElements(By.xpath(clientNetworkMasksApplyBtn)).get(xpathHelper(clientNetworkMasksApplyBtn)).click();
+
+                Thread.sleep(2000);
             }
-            while (!driver.findElement(By.xpath(lookupClientNetworkIPBtn)).isEnabled()) {
-                Thread.sleep(1000);
+
+            scrollToXpath(saveClusterNetworkBtn);
+            driver.findElement(By.xpath(saveClusterNetworkBtn)).click();
+            Thread.sleep(10000);
+
+            //Client network review and edit
+            System.out.println("************************* Client network review and edit ***********************");
+            try {
+                scrollToXpath(clientNetworkReviewAndEditCollapse);
+                if (!driver.findElement(By.xpath(clientNetworkReviewAndEditCollapse)).isSelected()) {
+                    driver.findElement(By.xpath(clientNetworkReviewAndEditCollapse)).click();
+                    Thread.sleep(5000);
+                }
+                if (driver.findElement(By.xpath(lookupClientNetworkIPBtn)).isEnabled()) {
+                    scrollToXpath(lookupClientNetworkIPBtn);
+                    driver.findElement(By.xpath(lookupClientNetworkIPBtn)).click();
+                }
+                while (!driver.findElement(By.xpath(lookupClientNetworkIPBtn)).isEnabled()) {
+                    Thread.sleep(1000);
+                }
+                driver.findElement(By.xpath(clientReviewAndEditUpdateBtn)).click();
+            } catch (Exception e) {
+                System.out.println("Errors: client network review and edit");
             }
-            driver.findElement(By.xpath(clientReviewAndEditUpdateBtn)).click();
-        } catch (Exception e) {
-            System.out.println("Errors: client network review and edit");
         }
 
         // private network
-//        boolean isPrivateNetworkAvailable = false;
-//        for (int i = 0; i < clusterNumber; i++) {
-//            List<NetworkPool> privateNetworkList = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks();
-//            if (privateNetworkList != null) {
-//                isPrivateNetworkAvailable = true;
-//                break;
-//            }
-//        }
-//        if (isPrivateNetworkAvailable) {
-//            if (!driver.findElement(By.xpath(privateNetworkCollapse)).isSelected()) {
-//                driver.findElement(By.xpath(privateNetworkCollapse)).click();
-//            }
-//            Thread.sleep(200);
-//            driver.findElement(By.xpath(privateNetworkCollapse)).click();
-//
-//        }
-        scrollToXpath(savePrivateNetworkBtn);
-        driver.findElement(By.xpath(savePrivateNetworkBtn)).click();
-        Thread.sleep(5000);
+        boolean isPrivateNetworkAvailable = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(0).getPrivateNetworks().size() != 0;
+        if (isPrivateNetworkAvailable) {
+            try {
+                String pKey = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(0).getPrivateNetworks().get(0).getPkey();
+                if (pKey != null) {
+                    while (!driver.findElement(By.xpath(privateNetowrkClusterTab(1))).isDisplayed()) {
+                        driver.findElement(By.xpath(privateNetworkCollapse)).click();
+                        Thread.sleep(10000);
+                    }
+                    for (int i = 0; i < clusterNumber; i++) {
+                        driver.findElement(By.xpath(privateNetowrkClusterTab(i + 1)));
+                        String clusterPKey = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(0).getPkey();
+                        String clusterStartIPAddress = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(0).getStartIp();
+                        String clusterNameMask = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(0).getNameMask();
+                        String clusterStartId = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(0).getStartId();
+                        scrollToElement(driver.findElements(By.xpath(privateNetworkClusterPKeyInput)).get(i));
+                        clearAndSendKeys(privateNetworkClusterPKeyInput, clusterPKey, i);
+                        clearAndSendKeys(privateNetworkClusterStartIPAddressInput, clusterStartIPAddress, i);
+                        clearAndSendKeys(privateNetworkClusterNameMaskInput, clusterNameMask, i);
+                        clearAndSendKeys(privateNetworkClusterStartIdInput, clusterStartId, i);
+
+                        String storagePKey = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(1).getPkey();
+                        String storageStartIPAddress = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(1).getStartIp();
+//                String computeNameMask = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(1).getNameMask();
+                        String storageNameMask = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(1).getNameMask();
+//                String computeStartId = ;
+                        String storageStartId = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getPrivateNetworks().get(1).getStartId();
+                        clearAndSendKeys(privateNetworkStoragePKeyInput, storagePKey, i);
+                        clearAndSendKeys(privateNetworkStorageStartIPAddressInput, storageStartIPAddress, i);
+//                clearAndSendKeys(privateNetworkComputeNameMaskInput, computeNameMask, i);
+                        clearAndSendKeys(privateNetworkStorageNameMaskInput, storageNameMask, i);
+//                clearAndSendKeys(privateNetworkComputeNameStartIdInput, computeStartId, i);
+                        clearAndSendKeys(privateNetworkStorageNameStartIdInput, storageStartId, i);
+                        Thread.sleep(200);
+                    }
+                }
+            } catch (Exception e) {
+
+            }
+            scrollToXpath(savePrivateNetworkBtn);
+            driver.findElement(By.xpath(savePrivateNetworkBtn)).click();
+            Thread.sleep(5000);
+        }
 
         // backup network
         boolean isBackupNetworkAvailable = false;
         for (int i = 0; i < clusterNumber; i++) {
-            NetworkPool backupNetwork = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getBackupNetwork();
-            if (backupNetwork != null) {
+            String backupNetworkGateway = parseJson(jsonfile).getClusterNetworks().getClusterNetworkList().get(i).getBackupNetwork().getGateway();
+            if (backupNetworkGateway != null) {
                 isBackupNetworkAvailable = true;
                 break;
             }
         }
         if (isBackupNetworkAvailable) {
+            while (!driver.findElement(By.xpath(enableBackupNetworkBtn)).isDisplayed()) {
+                driver.findElement(By.xpath(backNetworkCollapse)).click();
+                Thread.sleep(5000);
+            }
             if (!driver.findElement(By.xpath(enableBackupNetworkBtn)).isSelected()) {
                 driver.findElement(By.xpath(enableBackupNetworkBtn)).click();
                 Thread.sleep(500);
@@ -851,7 +895,7 @@ public class OEDAJsonInputTest {
             }
         }
     }
-    
+
     @Test
     public void test10*() throws Exception {
         System.out.println("Running test " + getMethodName());
